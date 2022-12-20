@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using AdvertisementSystem.Core;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class Interstitial : IAdFormat
@@ -50,7 +52,13 @@ public class Interstitial : IAdFormat
         double retryDelay = Math.Pow(2, Math.Min(6, _retryAttempt));
 
         //TODO: Unitask is probably appropriate solution for this.
-        // Invoke("LoadInterstitial", (float) retryDelay);
+        DelayedLoadInterstatialAsync(retryDelay).Forget();
+    }
+
+    private async UniTaskVoid DelayedLoadInterstatialAsync(double retryDelay)
+    {
+        await UniTask.Delay(TimeSpan.FromSeconds(retryDelay));
+        LoadInterstitial();
     }
 
     private void OnInterstitialDisplayedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)
