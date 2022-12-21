@@ -21,6 +21,11 @@ public class ApplovinSystem : IInitializable, IAdvertisementSystem
         MaxSdkCallbacks.OnSdkInitializedEvent += _interstitial.OnSDKInitializeEvent;
         MaxSdkCallbacks.OnSdkInitializedEvent += _banner.OnSDKInitializeEvent;
 
+        MaxSdkCallbacks.OnSdkInitializedEvent += configuration =>
+        {
+            MaxSdk.ShowMediationDebugger();
+        };
+
         MaxSdk.SetSdkKey(_applovinSDKData.SDKKey);
         MaxSdk.SetUserId(_applovinSDKData.UserId);
         MaxSdk.InitializeSdk();
