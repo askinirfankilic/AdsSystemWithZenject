@@ -6,6 +6,9 @@ namespace AdvertisementSystem
 {
     public class ApplovinInterstitial : IAdFormat
     {
+        public bool InterstitalReady => _interstitalReady;
+        
+        private bool _interstitalReady;
         private int _retryAttempt = 0;
 
         private readonly ApplovinSettingsData _applovinSDKData;
@@ -14,6 +17,7 @@ namespace AdvertisementSystem
         {
             _applovinSDKData = applovinSDKData;
         }
+
 
         public void OnSDKInitializeEvent(MaxSdkBase.SdkConfiguration sdkConfiguration)
         {
@@ -25,7 +29,15 @@ namespace AdvertisementSystem
             MaxSdkCallbacks.Interstitial.OnAdHiddenEvent += OnInterstitialHiddenEvent;
             MaxSdkCallbacks.Interstitial.OnAdDisplayFailedEvent += OnInterstitialAdFailedToDisplayEvent;
 
+            DelayedReadyInterstatialAsync(30).Forget();           
+            
             LoadInterstitial();
+        }
+
+        private async UniTaskVoid DelayedReadyInterstatialAsync(double delay)
+        {
+            await UniTask.Delay(TimeSpan.FromSeconds(delay), true);
+            _interstitalReady = true;
         }
 
         private void LoadInterstitial()

@@ -4,7 +4,7 @@ using UnityEngine.Assertions;
 
 namespace AdvertisementSystem.Editor
 {
-    public class ApplovinSettingsEditorWindow : UnityEditor.EditorWindow
+    public class ApplovinSettingsEditorWindow : EditorWindow
     {
         private UnityEditor.Editor _applovinSettingsEditor;
         private ApplovinSettingsData _applovinSettingsData;
@@ -19,9 +19,9 @@ namespace AdvertisementSystem.Editor
 
         private void OnEnable()
         {
-            ScriptableObject obj =
-                AssetDatabase.LoadAssetAtPath<ScriptableObject>("Assets/Resources/Meditation/ApplovinSDKData.asset");
-            _applovinSettingsData = obj as ApplovinSettingsData;
+            _applovinSettingsData =
+                AssetDatabase.LoadAssetAtPath<ScriptableObject>("Assets/Resources/Meditation/ApplovinSDKData.asset") as
+                    ApplovinSettingsData;
 
             Assert.IsNotNull(_applovinSettingsData);
 

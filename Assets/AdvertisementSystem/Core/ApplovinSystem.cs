@@ -5,6 +5,7 @@ namespace AdvertisementSystem
 {
     public class ApplovinSystem : IInitializable, IAdvertisementSystem
     {
+        public Action OnInterstitialNotReady { get; set; }
         public Action<int> OnRewardReceived { get; set; }
 
         private bool _bannerVisible = true;
@@ -66,6 +67,12 @@ namespace AdvertisementSystem
 
         public void ShowInterstitial()
         {
+            if (!_applovinInterstitial.InterstitalReady)
+            {
+                OnInterstitialNotReady?.Invoke();
+                return;
+            }
+            
             if (MaxSdk.IsInterstitialReady(_applovinSDKData.InterstitialAdUnitId))
             {
                 MaxSdk.ShowInterstitial(_applovinSDKData.InterstitialAdUnitId);

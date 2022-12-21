@@ -7,6 +7,7 @@ namespace AdvertisementSystem
     /// </summary>
     public interface IAdvertisementSystem
     {
+        public Action OnInterstitialNotReady { get; set; }
         public Action<int> OnRewardReceived { get; set; }
         public void ShowBanner();
         public void ToggleBanner();

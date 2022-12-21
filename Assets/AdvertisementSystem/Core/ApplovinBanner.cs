@@ -13,11 +13,8 @@ namespace AdvertisementSystem
 
         public void OnSDKInitializeEvent(MaxSdkBase.SdkConfiguration sdkConfiguration)
         {
-            // Banners are automatically sized to 320×50 on phones and 728×90 on tablets
-            // You may call the utility method MaxSdkUtils.isTablet() to help with view sizing adjustments
             MaxSdk.CreateBanner(_applovinSettingsData.BannerAdUnitId, MaxSdkBase.BannerPosition.BottomCenter);
 
-            // Set background or background color for banners to be fully functional
             MaxSdk.SetBannerBackgroundColor(_applovinSettingsData.BannerAdUnitId, Color.black);
 
             MaxSdkCallbacks.Banner.OnAdLoadedEvent += OnBannerAdLoadedEvent;
