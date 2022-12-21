@@ -6,7 +6,7 @@ using Zenject;
 public class ApplovinSDKDataInstaller : ScriptableObjectInstaller<ApplovinSDKDataInstaller>
 {
     [SerializeField]
-    private ApplovinSDKData _applovinSDKData;
+    private ApplovinSettingsData _applovinSDKData;
     
     public override void InstallBindings()
     {

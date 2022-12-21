@@ -6,13 +6,13 @@ using AdvertisementSystem.Core;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public class Interstitial : IAdFormat
+public class ApplovinInterstitial : IAdFormat
 {
-    private int _retryAttempt;
+    private int _retryAttempt = 0;
     
-    private readonly ApplovinSDKData _applovinSDKData;
+    private readonly ApplovinSettingsData _applovinSDKData;
     
-    public Interstitial(ApplovinSDKData applovinSDKData)
+    public ApplovinInterstitial(ApplovinSettingsData applovinSDKData)
     {
         _applovinSDKData = applovinSDKData;
     }

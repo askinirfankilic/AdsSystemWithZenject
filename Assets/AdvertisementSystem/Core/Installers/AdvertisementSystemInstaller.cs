@@ -1,5 +1,4 @@
 using AdvertisementSystem.Core;
-using UnityEngine;
 using Zenject;
 
 public class AdvertisementSystemInstaller : MonoInstaller<AdvertisementSystemInstaller>
@@ -13,7 +12,8 @@ public class AdvertisementSystemInstaller : MonoInstaller<AdvertisementSystemIns
     private void BindApplovin()
     {
         Container.BindInterfacesAndSelfTo<ApplovinSystem>().AsSingle().NonLazy();
-        Container.BindInterfacesAndSelfTo<Interstitial>().AsSingle().NonLazy();
-        Container.BindInterfacesAndSelfTo<Banner>().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<ApplovinInterstitial>().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<ApplovinBanner>().AsSingle().NonLazy();
+        Container.BindInterfacesAndSelfTo<ApplovinRewarded>().AsSingle().NonLazy();
     }
 }

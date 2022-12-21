@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9587c87dd9bd44cbbebbd8a54b97fe4c, type: 3}
   m_Name: ApplovinSDKData
   m_EditorClassIdentifier: 
+  Muted: 0
   UserId: USER_ID
+  SDKKey: bOZ0T4haEDFcFQl7bAa_yD3_BRHNTNTZkULLVCe7Tml1IMu7wTcGddX8_e8pTr0SUS5kIdp7TXBDLJBlTNcOQv
   BannerAdUnitId: 212dbcc414464d15b099ac486956caa1
   InterstitialAdUnitId: be3d5b07eebb4be2acc3cc32fe1476a2
-  SDKKey: bOZ0T4haEDFcFQl7bAa_yD3_BRHNTNTZkULLVCe7Tml1IMu7wTcGddX8_e8pTr0SUS5kIdp7TXBDLJBlTNcOQv
+  RewarddedAdUnitId: cbedb52699944b318ebad8a94e06b287

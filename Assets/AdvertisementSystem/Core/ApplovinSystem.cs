@@ -1,34 +1,50 @@
+using System;
 using AdvertisementSystem.Core;
 using Zenject;
 
-public class ApplovinSystem : IInitializable, IAdvertisementSystem
+public class ApplovinSystem : IInitializable, IAdvertisementSystem, IDisposable
 {
+    public Action<int> OnCurrencyChanged;
+
     private bool _bannerVisible = false;
 
-    private readonly ApplovinSDKData _applovinSDKData;
-    private readonly Interstitial _interstitial;
-    private readonly Banner _banner;
+    private readonly ApplovinSettingsData _applovinSDKData;
+    private readonly ApplovinInterstitial _applovinInterstitial;
+    private readonly ApplovinBanner _applovinBanner;
+    private readonly ApplovinRewarded _applovinRewarded;
 
-    public ApplovinSystem(ApplovinSDKData applovinSDKData, Interstitial interstitial, Banner banner)
+    public ApplovinSystem(
+        ApplovinSettingsData applovinSDKData,
+        ApplovinInterstitial applovinInterstitial,
+        ApplovinBanner applovinBanner,
+        ApplovinRewarded applovinRewarded)
     {
         _applovinSDKData = applovinSDKData;
-        _interstitial = interstitial;
-        _banner = banner;
+        _applovinInterstitial = applovinInterstitial;
+        _applovinBanner = applovinBanner;
+        _applovinRewarded = applovinRewarded;
+
+        _applovinRewarded.OnRewardReceived += OnCurrencyChanged;
     }
 
     public void Initialize()
     {
-        MaxSdkCallbacks.OnSdkInitializedEvent += _interstitial.OnSDKInitializeEvent;
-        MaxSdkCallbacks.OnSdkInitializedEvent += _banner.OnSDKInitializeEvent;
+        MaxSdkCallbacks.OnSdkInitializedEvent += _applovinInterstitial.OnSDKInitializeEvent;
+        MaxSdkCallbacks.OnSdkInitializedEvent += _applovinBanner.OnSDKInitializeEvent;
+        MaxSdkCallbacks.OnSdkInitializedEvent += _applovinRewarded.OnSDKInitializeEvent;
+        MaxSdkCallbacks.OnSdkInitializedEvent += configuration => { MaxSdk.ShowMediationDebugger(); };
 
-        MaxSdkCallbacks.OnSdkInitializedEvent += configuration =>
-        {
-            MaxSdk.ShowMediationDebugger();
-        };
+        OnCurrencyChanged += ChangeCurrency;
 
+        MaxSdk.SetMuted(_applovinSDKData.Muted);
         MaxSdk.SetSdkKey(_applovinSDKData.SDKKey);
         MaxSdk.SetUserId(_applovinSDKData.UserId);
         MaxSdk.InitializeSdk();
+    }
+
+    public void Dispose()
+    {
+        OnCurrencyChanged -= ChangeCurrency;
     }
 
     public void ShowBanner()
@@ -60,6 +76,14 @@ public class ApplovinSystem : IInitializable, IAdvertisementSystem
     }
 
     public void ShowRewarded()
+    {
+        if (MaxSdk.IsRewardedAdReady(_applovinSDKData.RewarddedAdUnitId))
+        {
+            MaxSdk.ShowRewardedAd(_applovinSDKData.RewarddedAdUnitId);
+        }
+    }
+
+    public void ChangeCurrency(int amount)
     {
     }
 }

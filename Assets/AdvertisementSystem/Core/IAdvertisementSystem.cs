@@ -9,5 +9,6 @@
         public void ToggleBanner();
         public void ShowInterstitial();
         public void ShowRewarded();
+        public void ChangeCurrency(int amount);
     }
 }
