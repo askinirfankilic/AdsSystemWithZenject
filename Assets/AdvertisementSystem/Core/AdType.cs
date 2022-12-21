@@ -1,7 +1,9 @@
-﻿public enum AdType
+﻿namespace AdvertisementSystem 
 {
-    StartBanner = 0,
-    ToggleBanner = 1,
-    Interstitial = 2,
-    Rewarded = 3,
+    public enum AdType
+    {
+        Banner = 0,
+        Interstitial = 1,
+        Rewarded = 2,
+    }
 }

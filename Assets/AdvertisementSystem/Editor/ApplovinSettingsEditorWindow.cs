@@ -1,5 +1,4 @@
-﻿using AdvertisementSystem.Core;
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -10,7 +9,7 @@ namespace AdvertisementSystem.Editor
         private UnityEditor.Editor _applovinSettingsEditor;
         private ApplovinSettingsData _applovinSettingsData;
 
-        [UnityEditor.MenuItem("Meditation Settings/Applovin Settings")]
+        [MenuItem("Meditation Settings/Applovin Settings")]
         private static void ShowWindow()
         {
             var window = GetWindow<ApplovinSettingsEditorWindow>();

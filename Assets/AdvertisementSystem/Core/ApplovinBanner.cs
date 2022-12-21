@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace AdvertisementSystem.Core
+namespace AdvertisementSystem
 {
     public class ApplovinBanner : IAdFormat
     {
@@ -26,6 +26,8 @@ namespace AdvertisementSystem.Core
             MaxSdkCallbacks.Banner.OnAdRevenuePaidEvent += OnBannerAdRevenuePaidEvent;
             MaxSdkCallbacks.Banner.OnAdExpandedEvent += OnBannerAdExpandedEvent;
             MaxSdkCallbacks.Banner.OnAdCollapsedEvent += OnBannerAdCollapsedEvent;
+            
+            MaxSdk.ShowBanner(_applovinSettingsData.BannerAdUnitId);
         }
 
         private void OnBannerAdLoadedEvent(string adUnitId, MaxSdkBase.AdInfo adInfo)

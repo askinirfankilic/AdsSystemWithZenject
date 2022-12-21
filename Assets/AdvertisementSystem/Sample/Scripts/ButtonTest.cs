@@ -1,5 +1,4 @@
 using System;
-using AdvertisementSystem.Core;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
@@ -33,10 +32,7 @@ namespace AdvertisementSystem.Sample
         {
             switch (_adType)
             {
-                case AdType.StartBanner:
-                    _advertisementSystem.ShowBanner();
-                    break;
-                case AdType.ToggleBanner:
+                case AdType.Banner:
                     _advertisementSystem.ToggleBanner();
                     break;
                 case AdType.Interstitial:

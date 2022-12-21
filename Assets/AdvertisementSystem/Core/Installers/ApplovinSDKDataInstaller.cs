@@ -1,15 +1,17 @@
-using AdvertisementSystem.Core;
 using UnityEngine;
 using Zenject;
 
-[CreateAssetMenu(fileName = "ApplovinSDKDataInstaller", menuName = "Installers/ApplovinSDKDataInstaller")]
-public class ApplovinSDKDataInstaller : ScriptableObjectInstaller<ApplovinSDKDataInstaller>
+namespace AdvertisementSystem
 {
-    [SerializeField]
-    private ApplovinSettingsData _applovinSDKData;
-    
-    public override void InstallBindings()
+    [CreateAssetMenu(fileName = "ApplovinSDKDataInstaller", menuName = "Installers/ApplovinSDKDataInstaller")]
+    public class ApplovinSDKDataInstaller : ScriptableObjectInstaller<ApplovinSDKDataInstaller>
     {
-        Container.BindInstance(_applovinSDKData);
+        [SerializeField]
+        private ApplovinSettingsData _applovinSDKData;
+    
+        public override void InstallBindings()
+        {
+            Container.BindInstance(_applovinSDKData);
+        }
     }
 }

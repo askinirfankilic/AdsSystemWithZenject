@@ -1,7 +1,8 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
-namespace AdvertisementSystem.Core
+namespace AdvertisementSystem
 {
     public class ApplovinRewarded : IAdFormat
     {
@@ -18,7 +19,6 @@ namespace AdvertisementSystem.Core
 
         public void OnSDKInitializeEvent(MaxSdkBase.SdkConfiguration sdkConfiguration)
         {
-            // Attach callback
             MaxSdkCallbacks.Rewarded.OnAdLoadedEvent += OnRewardedAdLoadedEvent;
             MaxSdkCallbacks.Rewarded.OnAdLoadFailedEvent += OnRewardedAdLoadFailedEvent;
             MaxSdkCallbacks.Rewarded.OnAdDisplayedEvent += OnRewardedAdDisplayedEvent;
@@ -69,7 +69,7 @@ namespace AdvertisementSystem.Core
         private void OnRewardedAdFailedToDisplayEvent(string adUnitId, MaxSdkBase.ErrorInfo errorInfo,
             MaxSdkBase.AdInfo adInfo)
         {
-            // Rewarded ad failed to display. AppLovin recommends that you load the next ad.
+            // Rewarded ad failed to display. Load the next ad.
             LoadRewardedAd();
         }
 
@@ -85,7 +85,15 @@ namespace AdvertisementSystem.Core
 
         private void OnRewardedAdReceivedRewardEvent(string adUnitId, MaxSdk.Reward reward, MaxSdkBase.AdInfo adInfo)
         {
-            // The rewarded ad displayed and the user should receive the reward.
+#if UNITY_EDITOR 
+            Debug.Log($"{reward.Label} -> {reward.Amount.ToString()}");
+#endif
+
+            //TODO: It seems reward.Amount always 0 in build so i used a fixed value from SO.
+            if (reward.Amount == 0)
+            {
+                reward.Amount = _applovinSettingsData.Reward;
+            }
             OnRewardReceived?.Invoke(reward.Amount);
         }
 

@@ -1,28 +1,38 @@
-using AdvertisementSystem.Core;
 using TMPro;
 using UnityEngine;
 using Zenject;
 
-public class CurrencyTest : MonoBehaviour
+namespace AdvertisementSystem.Sample 
 {
-    private int _curency;
-
-    private TextMeshProUGUI _textCurrency;
-    private IAdvertisementSystem _advertisementSystem;
-
-    [Inject]
-    private void Construct(IAdvertisementSystem advertisementSystem)
+    public class CurrencyTest : MonoBehaviour
     {
-    }
+        private int _curency;
 
-    private void Awake()
-    {
-        TryGetComponent(out _textCurrency);
-    }
+        private TextMeshProUGUI _textCurrency;
+        private IAdvertisementSystem _advertisementSystem;
 
-    public void SetCurrency(int currencyChange)
-    {
-        _curency += currencyChange;
-        _textCurrency.SetText(_curency.ToString());
+        [Inject]
+        private void Construct(IAdvertisementSystem advertisementSystem)
+        {
+            _advertisementSystem = advertisementSystem;
+
+            _advertisementSystem.OnRewardReceived += SetCurrency;
+        }
+
+        private void OnDestroy()
+        {
+            _advertisementSystem.OnRewardReceived -= SetCurrency;
+        }
+
+        private void Awake()
+        {
+            TryGetComponent(out _textCurrency);
+        }
+
+        public void SetCurrency(int currencyChange)
+        {
+            _curency += currencyChange;
+            _textCurrency.SetText(_curency.ToString());
+        }
     }
 }

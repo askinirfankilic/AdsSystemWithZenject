@@ -1,4 +1,4 @@
-﻿namespace AdvertisementSystem.Core
+﻿namespace AdvertisementSystem
 {
     public interface IAdFormat
     {
